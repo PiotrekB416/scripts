@@ -38,23 +38,23 @@ class Command:
             self.move_client(selector, workspace)
 
     def communication(self) -> None:
-        self.spawn_or_move(lambda c: c["class"] == "discord", ["discord"], "communication")
-        self.move_client(lambda c: c["class"] == "whatsapp", "communication")
+        self.spawn_or_move(lambda c: c["class"] == "Beeper", ["beeper"], "communication")
+        self.move_client(lambda c: c["class"] == "Beeper", "communication")
         hypr.dispatch("togglespecialworkspace", "communication")
 
     def music(self) -> None:
         self.spawn_or_move(
-            lambda c: c["class"] == "Spotify" or c["initialTitle"] == "Spotify" or c["initialTitle"] == "Spotify Free",
-            ["spicetify", "watch", "-s"],
+            lambda c: c["class"] == "Grayjay" or c["title"] == "Grayjay",
+            ["flatpak", "run", "app.grayjay.Grayjay"],
             "music",
         )
-        self.move_client(lambda c: c["class"] == "feishin", "music")
+        self.move_client(lambda c: c["title"] == "Grayjay", "music")
         hypr.dispatch("togglespecialworkspace", "music")
 
     def sysmon(self) -> None:
         self.spawn_client(
             lambda c: c["class"] == "btop" and c["title"] == "btop" and c["workspace"]["name"] == "special:sysmon",
-            ["foot", "-a", "btop", "-T", "btop", "fish", "-C", "exec btop"],
+            ["alacritty", "--class", "btop", "-T", "btop", "-e", "fish", "-C", "exec btop"],
         )
         hypr.dispatch("togglespecialworkspace", "sysmon")
 
